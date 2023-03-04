@@ -3,7 +3,9 @@ Play Economy game development infrastructure
 
 ## About
 This repository stores Play Economy game infrastrcuture build scripts and files.
-For the moment we only need a MongoDB server that will run on top of a docker container.
+It installs following services:
+* [Mongo DB](https://www.mongodb.com/)
+* [Rabbig MQ](https://www.rabbitmq.com/)
 
 ##
 ### Prerequisites
