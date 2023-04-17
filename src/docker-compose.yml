@@ -7,7 +7,9 @@ services:
     ports:
       - 27017:27017
     volumes:
-      - mongodbdata:/data/db
+      - pe-mongodbdata:/data/db
+    networks:
+      - pe-network
 
   rabbitmq:
     image: rabbitmq:management
@@ -16,9 +18,16 @@ services:
       - 5672:5672
       - 15672:15672
     volumes:
-      - rabbitmqdata:/var/lib/rabbitmq
+      - pe-rabbitmqdata:/var/lib/rabbitmq
+    networks:
+      - pe-network
     hostname: rabbitmq
 
 volumes:
-  mongodbdata:
-  rabbitmqdata:
+  pe-mongodbdata:
+  pe-rabbitmqdata:
+
+networks:
+  pe-network:
+    name: pe-network
+    driver: bridge
