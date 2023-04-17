@@ -2,27 +2,50 @@
 Play Economy game development infrastructure
 
 ## About
-This repository stores Play Economy game infrastrcuture build scripts and files.
-It installs following services:
-* [Mongo DB](https://www.mongodb.com/)
-* [Rabbig MQ](https://www.rabbitmq.com/)
+This repository stores Play Economy game infrastrcuture stack scripts which creates a [MongoDB](https://www.mongodb.com/) database service, a [RabbitMQ](https://www.rabbitmq.com/) message brocker service and a network to attach to, named **pe-network**, network that will be used by other Play Economy services to communicate with infrastructure services or the rest of Play Economy services.
 
-##
-### Prerequisites
+## Prerequisites
 * Install [winget](https://learn.microsoft.com/en-us/windows/package-manager/winget/)
 * Install git: `winget install --id Git.Git --source winget`
 * Install docker[^wsl]: `winget install --id Docker.DockerDesktop`
 
-### Clone source
-Create a project folder on your box. **D:\Projects\Play Economy** is a good idea but you can choose whatever fits your needs. For Windows boxes you have to issue this command in a powershell window: `New-Item -ItemType Directory -Path 'D:\Projects\Play Economy'`. Switch to this directory: `Set-Locatin -Path 'D:\Projects\Play Economy'`. 
+## Clone source
+First, you need to create a workspace folder and then switch to that workspace folder. **D:\Projects\PlayEconomy** can be a good idea but you should change to whatever fits your needs. Than, you have to clone this repository to the workspace you've just created: 
 
-Clone this repository to your box: `git clone https://github.com/1384microservices/Play.Infrastructure.git`.
+```powershell 
+New-Item -ItemType Directory -Path 'D:\Projects\Play Economy'
+Set-Locatin -Path 'D:\Projects\Play Economy'
+git clone https://github.com/1384microservices/Play.Infrastructure.git
+```
 
-### Spin-up infrastructure containers
-Navigate to `./src` folder from the root path of this repository clone and issue this command: `docker-compose up`.
+## Spin-up infrastructure resources
+You must navigate to **src** folder within this repository clone and spin-up infrastructure services:
+```powershell
+cd Play.Economy\src\
+docker-compose up
+```
+For the first time it will take a while to download required docker images. Keep in mind that this command will hang your terminal.
 
-For the first time it will take a while to download required docker images. After all images are downloaded you will see MongoDB container logs on terminal.
+If you want to spin-up the stack without terminal hanging you need to start infrastructure containers in detached mode:
+```powershell
+cd Play.Economy\src\
+docker-compose up -d
+```
+After all images are downloaded you will see MongoDB and RabbitMQ containers logs on terminal. 
 
-To stop the infrastructure you need to press `CTRL+C`.
+To stop the infrastructure containers you need to press `CTRL+C`.
 
-To start the infrastructure stack without hanging the terminal window and flood it with containers output you can build the infrastructure in detached mode: `docker-compose up -d`. If you've built the infrastructure stack in detached mod you need to issue `docker-compose down` command.
+## Tear down infrastructure resources
+Whenever possible, docker-compose tries to spin-up existing resources like containers, networks, volumes and so on. It creates new resources only when required ones are not in place. That's why, `CTRL+C` won't destroy created resources, it will only stop running containers.
+```powershell
+# Destroy all stack resources
+docker-compose down
+```
+
+## Consume Play Economy private nuget packages
+Play Economy nuget packages are stored in github repository. You need to setup a new nuget source to download these packages on your machine:
+```powershell
+$owner="1384microservices"
+$gh_pat="[type here your PAT]"
+dotnet nuget add source --username USERNAME --password $gh_pat --store-password-in-clear-text --name github "https://nuget.pkg.github.com/$owner/index.json"
+```
