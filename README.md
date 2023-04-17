@@ -49,3 +49,10 @@ $owner="1384microservices"
 $gh_pat="[type here your PAT]"
 dotnet nuget add source --username USERNAME --password $gh_pat --store-password-in-clear-text --name github "https://nuget.pkg.github.com/$owner/index.json"
 ```
+
+## Create Azure infrastructure
+```powershell
+$appName="1384microservices"
+$location=westeurope
+az group create --name $appName --location $location
+```
