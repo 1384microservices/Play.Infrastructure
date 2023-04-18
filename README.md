@@ -51,8 +51,15 @@ dotnet nuget add source --username USERNAME --password $gh_pat --store-password-
 ```
 
 ## Create Azure infrastructure
+### Create Azure resource group
 ```powershell
 $appName="1384microservices"
 $location=westeurope
 az group create --name $appName --location $location
+```
+
+### Create Azure Cosmos DB account
+```powershell
+$appName="1384microservices"
+az cosmosdb create --name $appName --resource-group $appName --kind MongoDB --enable-free-tier
 ```
