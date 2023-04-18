@@ -63,3 +63,11 @@ az group create --name $appName --location $location
 $appName="1384microservices"
 az cosmosdb create --name $appName --resource-group $appName --kind MongoDB --enable-free-tier
 ```
+
+### Create Azure Service Bus namespace
+```powershell
+$serviceBusNamespaceName = "dotnet1384microservices"
+$resourceGroupName="1384microservices"
+az servicebus namespace create --name $serviceBusNamespaceName --resource-group $resourceGroupName --sku Standard
+
+```
