@@ -69,5 +69,10 @@ az cosmosdb create --name $appName --resource-group $appName --kind MongoDB --en
 $serviceBusNamespaceName = "dotnet1384microservices"
 $resourceGroupName="1384microservices"
 az servicebus namespace create --name $serviceBusNamespaceName --resource-group $resourceGroupName --sku Standard
+```
 
+### Create Azure Container Registry
+```powershell
+$appName="1384microservices"
+az acr create --name $appName --resource-group $appName --sku Basic
 ```
