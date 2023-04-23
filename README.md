@@ -53,26 +53,56 @@ dotnet nuget add source --username USERNAME --password $gh_pat --store-password-
 ## Create Azure infrastructure
 ### Create Azure resource group
 ```powershell
-$appName="1384microservices"
-$location=westeurope
+$appName="playeconomy1384"
+$location='northeurope'
 az group create --name $appName --location $location
 ```
 
 ### Create Azure Cosmos DB account
 ```powershell
-$appName="1384microservices"
+$appName="playeconomy1384"
 az cosmosdb create --name $appName --resource-group $appName --kind MongoDB --enable-free-tier
 ```
 
 ### Create Azure Service Bus namespace
 ```powershell
-$serviceBusNamespaceName = "dotnet1384microservices"
-$resourceGroupName="1384microservices"
-az servicebus namespace create --name $serviceBusNamespaceName --resource-group $resourceGroupName --sku Standard
+$appName="playeconomy1384"
+az servicebus namespace create --name $appName --resource-group $appName --sku Standard
 ```
 
 ### Create Azure Container Registry
 ```powershell
-$appName="1384microservices"
+$appName="playeconomy1384"
 az acr create --name $appName --resource-group $appName --sku Basic
+```
+
+### Publish Docker images to ACR
+```powershell
+$appName="playeconomy1384"
+az acr login --name $appName
+$repositoryUrl="${appName}.azurecr.io"
+$localImages = "play.catalog", "play.identity", "play.inventory", "play.trading"
+for($i = 0; $i -lt $localImages.Length; $i++) {
+    $currentImageName = "$($localImages[$i]):latest"
+    $taggetImageName = "${repositoryUrl}/$($localImages[$i]):latest"
+    docker tag $currentImageName $taggetImageName
+    docker push $taggetImageName
+}
+```
+
+# Create AKS cluster
+```powershell
+az extension add --name aks-preview
+
+az feature register --name "EnableWorkloadIdentityPreview" --namespace "Microsoft.ContainerService"
+
+# Query existing features. Wait for this command to reach "Registered" state.
+az feature list -o table --query "[?contains(name, 'Microsoft.ContainerService/EnableWorkloadIdentityPreview')].{Name:name,State:properties.state}"
+
+az provider register --namespace Microsoft.ContainerService
+
+$appName="microservices1384"
+az aks create --name $appName --resource-group $appName --node-vm-size Standard_B2s --node-count 2 --attach-acr $appName --enable-oidc-issuer --enable-workload-identity --generate-ssh-keys
+
+az aks get-credentials --name $appName --resource-group $appName
 ```
