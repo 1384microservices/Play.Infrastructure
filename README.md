@@ -78,13 +78,14 @@ az acr create --name $appName --resource-group $appName --sku Basic
 
 ### Publish Docker images to ACR
 ```powershell
+$imageVersion="1.0.1"
 $appName="playeconomy1384"
 az acr login --name $appName
 $repositoryUrl="${appName}.azurecr.io"
 $localImages = "play.catalog", "play.identity", "play.inventory", "play.trading"
 for($i = 0; $i -lt $localImages.Length; $i++) {
     $currentImageName = "$($localImages[$i]):latest"
-    $taggetImageName = "${repositoryUrl}/$($localImages[$i]):latest"
+    $taggetImageName = "${repositoryUrl}/$($localImages[$i]):$imageVersion"
     docker tag $currentImageName $taggetImageName
     docker push $taggetImageName
 }
