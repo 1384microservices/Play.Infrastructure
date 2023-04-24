@@ -90,7 +90,7 @@ for($i = 0; $i -lt $localImages.Length; $i++) {
 }
 ```
 
-# Create AKS cluster
+### Create AKS cluster
 ```powershell
 az extension add --name aks-preview
 
@@ -105,4 +105,20 @@ $appName="microservices1384"
 az aks create --name $appName --resource-group $appName --node-vm-size Standard_B2s --node-count 2 --attach-acr $appName --enable-oidc-issuer --enable-workload-identity --generate-ssh-keys
 
 az aks get-credentials --name $appName --resource-group $appName
+
+# Stop cluster.
+# This does not work, seems to be an issue but worth to keep in mind.
+az aks nodepool scale --name nodepool1 --cluster-name $appName --resource-group $appName --node-count 0
+
+# Stop cluster.
+# This will take a while.
+az aks stop -g $appName -n $appName
+
+# Start cluster.
+# This will take a while.
+az aks start -g $appName -n $appName
+
+# Get K8S client and server version.
+# This helps you to check cluster status.
+kubectl version --short
 ```
