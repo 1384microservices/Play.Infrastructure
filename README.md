@@ -78,7 +78,7 @@ az acr create --name $appName --resource-group $appName --sku Basic
 
 ### Publish Docker images to ACR
 ```powershell
-$imageVersion="1.0.2"
+$imageVersion="1.0.4"
 $appName="playeconomy1384"
 az acr login --name $appName
 $repositoryUrl="${appName}.azurecr.io"
