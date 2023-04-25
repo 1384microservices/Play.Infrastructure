@@ -102,7 +102,7 @@ az feature list -o table --query "[?contains(name, 'Microsoft.ContainerService/E
 
 az provider register --namespace Microsoft.ContainerService
 
-$appName="microservices1384"
+$appName="playeconomy1384"
 az aks create --name $appName --resource-group $appName --node-vm-size Standard_B2s --node-count 2 --attach-acr $appName --enable-oidc-issuer --enable-workload-identity --generate-ssh-keys
 
 az aks get-credentials --name $appName --resource-group $appName
@@ -122,4 +122,10 @@ az aks start -g $appName -n $appName
 # Get K8S client and server version.
 # This helps you to check cluster status.
 kubectl version --short
+```
+
+### Create the Azure Key Valut
+```powershell
+$appName="playeconomy1384"
+az keyvault create -n $appName -g $appName 
 ```
