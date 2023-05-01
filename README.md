@@ -143,3 +143,11 @@ $k8sNS="emissary"
 helm install  emissary-ingress datawire/emissary-ingress --set service.annotations."service\.beta\.kubernetes\.io/azure-dns-label-name"=$appName -n $k8sNS --create-namespace
 kubectl rollout status deployment/emissary-ingress -n $k8sNS -w
 ```
+
+### Configuring Emissary-ingress routing
+```powershell
+$appName="playeconomy1384"
+$k8sNS="emissary"
+kubectl apply -f ./src/emissary-ingress/listener.yaml -n $k8sNS
+kubectl apply -f ./src/emissary-ingress/mappings.yaml -n $k8sNS
+```
