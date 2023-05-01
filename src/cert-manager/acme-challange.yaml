@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: acme-challanger-service
+  name: acme-challange-service
 spec:
   ports:
   - port: 80
@@ -13,9 +13,9 @@ spec:
 apiVersion: getambassador.io/v3alpha1
 kind: Mapping
 metadata:
-  name: acme-challanger-mapping
+  name: acme-challange-mapping
 spec:
   hostname: playeconomy1384.northeurope.cloudapp.azure.com
-  prefix: /.well-known/acme-challange/
+  prefix: /.well-known/acme-challenge/
   rewrite: ""
-  service: acme-challanger-service.emissary
+  service: acme-challange-service
