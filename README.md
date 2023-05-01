@@ -151,3 +151,15 @@ $k8sNS="emissary"
 kubectl apply -f ./src/emissary-ingress/listener.yaml -n $k8sNS
 kubectl apply -f ./src/emissary-ingress/mappings.yaml -n $k8sNS
 ```
+
+### Install Cert Manager to K8S
+```powershell
+helm repo add jetstack https://charts.jetstack.io
+helm repo update
+
+kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.11.0/cert-manager.crds.yaml
+
+
+$k8sNS="emissary"
+helm install cert-manager jetstack/cert-manager --version v1.11.0 --set installCRDs=true --namespace $k8sNS --create-namespace
+```
