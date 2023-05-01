@@ -129,3 +129,17 @@ kubectl version --short
 $appName="playeconomy1384"
 az keyvault create -n $appName -g $appName 
 ```
+
+### Install Emissary-Ingress
+```powershell
+helm repo add datawire https://app.getambassador.io
+helm repo update
+
+kubectl apply -f https://app.getambassador.io/yaml/emissary/3.6.0/emissary-crds.yaml
+kubectl wait --timeout=90s --for=condition=available deployment emissary-apiext -n emissary-system
+
+$appName="playeconomy1384"
+$k8sNS="emissary"
+helm install  emissary-ingress datawire/emissary-ingress --set service.annotations."service\.beta\.kubernetes\.io/azure-dns-label-name"=$appName -n $k8sNS --create-namespace
+kubectl rollout status deployment/emissary-ingress -n $k8sNS -w
+```
