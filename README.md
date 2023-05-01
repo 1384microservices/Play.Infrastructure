@@ -163,3 +163,20 @@ kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/
 $k8sNS="emissary"
 helm install cert-manager jetstack/cert-manager --version v1.11.0 --set installCRDs=true --namespace $k8sNS --create-namespace
 ```
+
+### Create cluster issuer
+```powershell
+$k8sNS="emissary"
+
+kubectl apply -f ./src/cert-manager/cluster-issuer.yaml -n $k8sNS
+kubectl apply -f ./src/cert-manager/acme-challange.yaml -n $k8sNS
+```
+
+### Create the TLS certificate
+```powershell
+$k8sNS="emissary"
+
+kubectl apply -f ./src/emissary-ingress/tls-certificate.yaml -n $k8sNS
+
+kubectl get certificate -n $k8sNS
+```

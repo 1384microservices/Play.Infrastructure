@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: acme-challanger-service
+spec:
+  ports:
+  - port: 80
+    targetPort: 8089
+  selector:
+    acme.cert-manager.io/http01-solver: "true"
+
+---
+apiVersion: getambassador.io/v3alpha1
+kind: Mapping
+metadata:
+  name: acme-challanger-mapping
+spec:
+  hostname: playeconomy1384.northeurope.cloudapp.azure.com
+  prefix: /.well-known/acme-challange/
+  rewrite: ""
+  service: acme-challanger-service.emissary
