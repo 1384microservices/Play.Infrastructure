@@ -1,0 +1,10 @@
+apiVersion: getambassador.io/v3alpha1
+kind: Host
+metadata:
+  name: playeconomy1384-host
+spec:
+  hostname: playeconomy1384.northeurope.cloudapp.azure.com
+  acmeProvider:
+    email: andrei.tudor@hotmail.com
+  tlsSecret:
+    name: playeconomy1384-tls

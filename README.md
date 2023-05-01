@@ -180,3 +180,11 @@ kubectl apply -f ./src/emissary-ingress/tls-certificate.yaml -n $k8sNS
 
 kubectl get certificate -n $k8sNS
 ```
+
+### Enabling TLS and HTTPS
+```powershell
+$k8sNS="emissary"
+
+kubectl apply -f src\emissary-ingress\host.yaml -n $k8sNS
+kubectl apply -f src\emissary-ingress\listener.yaml -n $k8sNS
+```
