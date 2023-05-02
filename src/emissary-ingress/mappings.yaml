@@ -1,3 +1,4 @@
+# identity
 apiVersion: getambassador.io/v3alpha1
 kind: Mapping
 metadata:
@@ -7,7 +8,8 @@ spec:
   prefix: /identity-svc/
   service: identity-service.identity
 
----
+--- 
+# catalog
 apiVersion: getambassador.io/v3alpha1
 kind: Mapping
 metadata:
@@ -16,3 +18,25 @@ spec:
   hostname: playeconomy1384.northeurope.cloudapp.azure.com
   prefix: /catalog-svc/
   service: catalog-service.catalog
+
+--- 
+# inventory
+apiVersion: getambassador.io/v3alpha1
+kind: Mapping
+metadata:
+  name: inventory-mapping
+spec:
+  hostname: playeconomy1384.northeurope.cloudapp.azure.com
+  prefix: /inventory-svc/
+  service: inventory-service.inventory
+
+--- 
+# trading
+apiVersion: getambassador.io/v3alpha1
+kind: Mapping
+metadata:
+  name: trading-mapping
+spec:
+  hostname: playeconomy1384.northeurope.cloudapp.azure.com
+  prefix: /trading-svc/
+  service: trading-service.trading
