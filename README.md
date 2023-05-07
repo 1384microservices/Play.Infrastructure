@@ -184,7 +184,20 @@ kubectl get certificate -n $k8sNS
 ### Enabling TLS and HTTPS
 ```powershell
 $k8sNS="emissary"
-
 kubectl apply -f src\emissary-ingress\host.yaml -n $k8sNS
 kubectl apply -f src\emissary-ingress\listener.yaml -n $k8sNS
+```
+
+### Packaging and publishing the microservices HELM chart
+```powershell
+$helmUser=[guid]::Empty.Guid
+
+$appname="playeconomy1384"
+$registry="${appname}.azurecr.io"
+$helmPassword=az acr login --name $appname --expose-token --output tsv --query accessToken
+
+helm package src/helm/microservice
+helm registry login $registry --username $helmUser --password $helmPassword
+
+helm push microservice-0.1.0.tgz oci://$registry/helm
 ```
