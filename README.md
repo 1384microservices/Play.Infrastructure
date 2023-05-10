@@ -201,3 +201,14 @@ helm registry login $registry --username $helmUser --password $helmPassword
 helm package src/helm/microservice
 helm push microservice-0.1.0.tgz oci://$registry/helm
 ```
+
+## Create GitHub service principal
+```powershell
+$appId = az ad sp create-for-rbac -n "GitHubActions" --skip-assignment --query appId --output tsv
+
+$appname="playeconomy1384"
+
+az role assignment create --assignee $appId --role "AcrPush" --resource-group $appname
+az role assignment create --assignee $appId --role "Azure Kubernetes Service Cluster User Role" --resource-group $appname
+az role assignment create --assignee $appId --role "Azure Kubernetes Service Contributor Role" --resource-group $appname
+```
