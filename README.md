@@ -197,9 +197,8 @@ $registry="${appname}.azurecr.io"
 $helmPassword=az acr login --name $appname --expose-token --output tsv --query accessToken
 helm registry login $registry --username $helmUser --password $helmPassword
 
-
 helm package src/helm/microservice
-helm push microservice-0.1.0.tgz oci://$registry/helm
+helm push microservice-0.1.1.tgz oci://$registry/helm
 ```
 
 ## Create GitHub service principal

@@ -1,6 +1,8 @@
 envVariables:
   ServiceSettings__MessageBroker: SERVICEBUS
   ServiceSettings__KeyVaultName: playeconomy1384
+  SeqSettings__Host: seq.observability 
+  SeqSettings__Port: 5341
 
 resources:
   limits:
