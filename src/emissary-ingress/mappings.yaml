@@ -51,3 +51,14 @@ spec:
   hostname: playeconomy1384.northeurope.cloudapp.azure.com
   prefix: /
   service: frontend-client.frontend
+
+---
+# seq mapping
+apiVersion: getambassador.io/v3alpha1
+kind: Mapping
+metadata:
+  name: seq-mapping
+spec:
+  hostname: playeconomy1384.northeurope.cloudapp.azure.com
+  prefix: /seq/
+  service: seq.observability
