@@ -4,7 +4,7 @@ allInOne:
   enabled: true
   extraEnv:
     - name: QUERY_BASE_PATH
-      value: /jaeger
+      value: /jaeger/
   ingress:
     enabled: false
 storage:

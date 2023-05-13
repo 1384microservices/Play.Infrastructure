@@ -225,5 +225,5 @@ helm install seq datalust/seq -n observability --create-namespace
 helm repo add jaegertracing https://jaegertracing.github.io/helm-charts
 helm repo update
 
-helm upgrade jaeger jaegertracing/jaeger --values src/jaeger/values.yaml -n observability --create-namespace
+helm upgrade jaeger jaegertracing/jaeger --values src/jaeger/values.yaml -n observability --create-namespace --install
 ```

@@ -62,3 +62,16 @@ spec:
   hostname: playeconomy1384.northeurope.cloudapp.azure.com
   prefix: /seq/
   service: seq.observability
+  
+
+---
+# seq mapping
+apiVersion: getambassador.io/v3alpha1
+kind: Mapping
+metadata:
+  name: jaeger-mapping
+spec:
+  hostname: playeconomy1384.northeurope.cloudapp.azure.com
+  prefix: /jaeger/
+  rewrite: ""
+  service: jaeger-query.observability:16686
