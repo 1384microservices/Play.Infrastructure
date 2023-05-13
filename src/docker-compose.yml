@@ -34,6 +34,17 @@ services:
     volumes:
       - pe-seqdata:/data
 
+  jaeger:
+    image: jaegertracing/all-in-one
+    container_name: jaeger
+    ports:
+      - 5778:5778
+      - 6831:6831/udp
+      - 6832:6832/udp
+      - 14250:14250
+      - 14268:14268
+      - 16686:16686
+
 volumes:
   pe-mongodbdata:
   pe-rabbitmqdata:
