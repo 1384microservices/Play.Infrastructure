@@ -212,10 +212,18 @@ az role assignment create --assignee $appId --role "Azure Kubernetes Service Clu
 az role assignment create --assignee $appId --role "Azure Kubernetes Service Contributor Role" --resource-group $appname
 ```
 
-## Deploying Seq to AKS
+## Deploy Seq to AKS
 ```powershell
 helm repo add datalust https://helm.datalust.co
 helm repo update
 
 helm install seq datalust/seq -n observability --create-namespace
+```
+
+## Deploy Jaeger to AKS
+```powershell
+helm repo add jaegertracing https://jaegertracing.github.io/helm-charts
+helm repo update
+
+helm upgrade jaeger jaegertracing/jaeger --values src/jaeger/values.yaml -n observability --create-namespace
 ```
