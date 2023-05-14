@@ -63,9 +63,8 @@ spec:
   prefix: /seq/
   service: seq.observability
   
-
 ---
-# seq mapping
+# jaeger mapping
 apiVersion: getambassador.io/v3alpha1
 kind: Mapping
 metadata:
@@ -75,3 +74,25 @@ spec:
   prefix: /jaeger/
   rewrite: ""
   service: jaeger-query.observability:16686
+
+---
+# prometheus mapping
+apiVersion: getambassador.io/v3alpha1
+kind: Mapping
+metadata:
+  name: prometheus-mapping
+spec:
+  hostname: playeconomy1384.northeurope.cloudapp.azure.com
+  prefix: /prometheus/
+  service: prometheus-operated.observability:9090
+
+---
+# seq mapping
+apiVersion: getambassador.io/v3alpha1
+kind: Mapping
+metadata:
+  name: grafana-mapping
+spec:
+  hostname: playeconomy1384.northeurope.cloudapp.azure.com
+  prefix: /grafana/
+  service: prometheus-grafana.observability:80

@@ -227,3 +227,11 @@ helm repo update
 
 helm upgrade jaeger jaegertracing/jaeger --values src/jaeger/values.yaml -n observability --create-namespace --install
 ```
+
+## Deploy prometheus and grafana to AKS
+```powershell
+helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+helm repo update
+
+helm upgrade prometheus prometheus-community/kube-prometheus-stack --values src\prometheus\values.yaml -n observability --create-namespace --install
+```
