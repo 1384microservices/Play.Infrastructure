@@ -11,3 +11,4 @@ spec:
       appType: {{ .Chart.Name }}
   endpoints:
     - port: http
+      path: /metrics
